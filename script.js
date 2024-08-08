@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-progreso = document.getElementById('progress').addEventListener('click', adelantar);
+    progreso = document.getElementById('progress').addEventListener('click', adelantar);
 });
 
+const aleatorio = document.getElementById("aleatorio");
 //Array con el listado de canciones a mostrar en el reprodutor
 const canciones = []
 
@@ -9,6 +10,8 @@ const audios = [
     "Telefonos.mp3"
 ]
 
+var musicaAleatoria = [];
+var indicePlayListAleatoria = 0;
 const audio = audios[0];
 
 var indiceActual = new Array(1)
@@ -47,12 +50,26 @@ function nextMusic() {
     const source = document.getElementById('source');
     cantidadCanciones = canciones.length;
     var musicaActual = Number(indiceActual[0]);
-    if (canciones.length == (musicaActual + 1)) {
-        var siguiente = 0
+    if (!aleatorio.checked) {
+        if (canciones.length == (musicaActual + 1)) {
+            var siguiente = 0
+        } else {
+            var siguiente = musicaActual + 1
+        }
     } else {
-        var siguiente = Math.floor(Math.random() * cantidadCanciones)
-        //var siguiente = musicaActual + 1
+        if (canciones.length == (indicePlayListAleatoria + 1)) {
+            indicePlayListAleatoria = 0;
+            var siguiente = musicaAleatoria[indicePlayListAleatoria];
+            indicePlayListAleatoria = indicePlayListAleatoria + 1;
+
+        } else {
+            var siguiente = musicaAleatoria[indicePlayListAleatoria];
+            indicePlayListAleatoria = indicePlayListAleatoria + 1;
+        }
     }
+
+
+
     removeActive()
     var item = document.getElementById(siguiente)
     item.classList.add("active");
@@ -158,11 +175,11 @@ function toggleIcon() {
 }
 
 //Funcion para que al dar click sobre la barra de progeso se permita adelantar
-function adelantar(e){
+function adelantar(e) {
     console.log("Diste click en la barra de tiempo")
-	const scrubTime = (e.offsetX / progress.offsetWidth) * player.duration;
-	player.currentTime = scrubTime;
-	console.log(e);
+    const scrubTime = (e.offsetX / progress.offsetWidth) * player.duration;
+    player.currentTime = scrubTime;
+    console.log(e);
 }
 //Funcion para convertir segundos a minutos y horas
 function secondsToString(seconds) {
@@ -203,10 +220,36 @@ function leerCarpeta() {
         player.play()
         indiceActual[0] = e.target.id
         classIconPlay();
-    
+
     }
     loadMusic(canciones[0])
     updateProgress()
     console.log(canciones)
 }
+//Funcion para crear una playlist aleatoria
+function crearPlayListAleatoria(tamano) {
+    for (let i = 0; i < tamano; i++) {
+        let aleatorio;
+        do {
+            aleatorio = Math.floor(Math.random() * tamano);
+        } while (musicaAleatoria.includes(aleatorio));
+        musicaAleatoria[i] = aleatorio;
+    }
+}
 
+//Crear la playlist cuando se oprima el checkbox
+aleatorio.addEventListener("change", function () {
+    musicaAleatoria = []
+    if(canciones.length > 0){
+        if (aleatorio.checked) {
+            crearPlayListAleatoria(canciones.length);
+        }
+    }else{
+        aleatorio.checked = false
+    }
+   
+});
+
+window.onload = function() {
+    aleatorio.checked = false; // Asegúrate de que el checkbox esté desmarcado
+};
