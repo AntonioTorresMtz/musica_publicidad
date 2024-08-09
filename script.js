@@ -11,6 +11,8 @@ const audiosPublicidad = []
 var musicaAleatoria = [];
 var indicePlayListAleatoria = 0;
 var indicePublicidad = 0;
+let cincoSegundosNotificados = false;
+
 
 
 var indiceActual = new Array(1)
@@ -66,8 +68,6 @@ function nextMusic() {
             indicePlayListAleatoria = indicePlayListAleatoria + 1;
         }
     }
-
-
 
     removeActive()
     var item = document.getElementById(siguiente)
@@ -131,9 +131,12 @@ function loadAudio() {
     } else {
         console.log("Índice fuera de rango");
     }
+    if (indicePublicidad == audiosPublicidad.length - 1)
+        indicePublicidad = 0;
+
 }
 
-//Funcion para actualizar la barra de progreso del reprodutor
+//Funcion para actualizar la barra de progreso del reproductor
 function updateProgress() {
     if (player.currentTime > 0) {
         const barra = document.getElementById('progress')
@@ -152,15 +155,15 @@ function updateProgress() {
         vol = 0.9
         console.log(player.volume)
     }
-    if (player.duration - player.currentTime == 5 && !hasActionBeenPerformed) {
-        console.log("Faltan exactamente 5 segundos");
-        console.log(player.volume);
+    if (player.duration - player.currentTime <= 5 && player.duration - player.currentTime > 0 && !cincoSegundosNotificados) {
+        console.log("Faltan 5 segundos");
         loadAudio();
 
-        hasActionBeenPerformed = true;
+        cincoSegundosNotificados = true;
     }
     if (player.ended) {
         nextMusic();//Reproducir la siguiente pista
+        cincoSegundosNotificados = false;
     }
 }
 
@@ -271,6 +274,15 @@ aleatorio.addEventListener("change", function () {
     }
 
 });
+
+function mostrarDuration() {
+    const spot = document.getElementById('publicidad');
+    const duration = spot.duration;
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+
+    console.log(`Duración del audio: ${minutes} minutos y ${seconds} segundos`);
+}
 
 window.onload = function () {
     aleatorio.checked = false; // Asegúrate de que el checkbox esté desmarcado
