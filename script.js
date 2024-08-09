@@ -125,15 +125,23 @@ function loadMusic(ruta) {
 function loadAudio() {
     var publicidad = document.getElementById('publicidad');
     if (indicePublicidad >= 0 && indicePublicidad < audiosPublicidad.length) {
-        publicidad.src = audiosPublicidad[indicePublicidad]
-        publicidad.play(); // Inicia la reproducción
+        publicidad.src = audiosPublicidad[indicePublicidad];
         indicePublicidad = indicePublicidad + 1;
     } else {
         console.log("Índice fuera de rango");
     }
-    if (indicePublicidad == audiosPublicidad.length - 1)
-        indicePublicidad = 0;
 
+}
+
+function reproducirAudio() {
+    publicidad.play();
+    if (indicePublicidad = audiosPublicidad.length - 1) {
+        indicePublicidad = 0;
+    }
+    // Esperar a que termine la reproducción actual antes de cambiar la fuente
+    publicidad.addEventListener('ended', () => {
+        loadAudio();
+    });
 }
 
 //Funcion para actualizar la barra de progreso del reproductor
@@ -150,14 +158,11 @@ function updateProgress() {
         duracion = actual + ' / ' + dura
         document.getElementById('timer').innerText = duracion
     }
-    if (player.duration == 5) {
-        console.log("Subierndo Volumen")
-        vol = 0.9
-        console.log(player.volume)
-    }
-    if (player.duration - player.currentTime <= 5 && player.duration - player.currentTime > 0 && !cincoSegundosNotificados) {
+    var duracionPublicidad = publicidad.duration / 2
+    if (player.duration - player.currentTime <= duracionPublicidad && player.duration - player.currentTime > 0 && !cincoSegundosNotificados) {
         console.log("Faltan 5 segundos");
-        loadAudio();
+        console.log(publicidad.duration)
+        reproducirAudio();
 
         cincoSegundosNotificados = true;
     }
@@ -249,6 +254,7 @@ function leerCarpetaPublicidad() {
         }
     }
     console.log(audiosPublicidad);
+    loadAudio()
 }
 
 //Funcion para crear una playlist aleatoria
