@@ -21,7 +21,8 @@
         Audio no soportado
     </audio>
 
-    <audio id="audioCaidas" src="./audio/Telefonos.mp3"></audio>
+    <audio id="publicidad">
+    </audio>
 
     <div id="controls">
         <div class="timer" id="timer">
@@ -53,6 +54,9 @@
         <input type="file" id="folderInput" webkitdirectory directory multiple>
         <button onclick="leerCarpeta()">Leer Carpeta</button>
         <pre id="output"></pre>
+        <input type="file" id="folderPublicidad" webkitdirectory directory multiple>
+        <button onclick="leerCarpetaPublicidad()">Leer Carpeta de publicidad</button>
+
         <div id="playList"></div>
 
 

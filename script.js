@@ -6,13 +6,12 @@ const aleatorio = document.getElementById("aleatorio");
 //Array con el listado de canciones a mostrar en el reprodutor
 const canciones = []
 
-const audios = [
-    "Telefonos.mp3"
-]
+const audiosPublicidad = []
 
 var musicaAleatoria = [];
 var indicePlayListAleatoria = 0;
-const audio = audios[0];
+var indicePublicidad = 0;
+
 
 var indiceActual = new Array(1)
 //Funcion para crear mediante javascript el listado de canciones
@@ -124,8 +123,14 @@ function loadMusic(ruta) {
 
 // Funcion para cargar audios
 function loadAudio() {
-    const audioCaidas = document.getElementById('audioCaidas');
-    audioCaidas.play();
+    var publicidad = document.getElementById('publicidad');
+    if (indicePublicidad >= 0 && indicePublicidad < audiosPublicidad.length) {
+        publicidad.src = audiosPublicidad[indicePublicidad]
+        publicidad.play(); // Inicia la reproducción
+        indicePublicidad = indicePublicidad + 1;
+    } else {
+        console.log("Índice fuera de rango");
+    }
 }
 
 //Funcion para actualizar la barra de progreso del reprodutor
@@ -147,10 +152,12 @@ function updateProgress() {
         vol = 0.9
         console.log(player.volume)
     }
-    if (player.duration - player.currentTime <= 5 && player.duration - player.currentTime > 0) {
-        console.log("Faltan 5 segundos")
-        console.log(player.volume)
+    if (player.duration - player.currentTime == 5 && !hasActionBeenPerformed) {
+        console.log("Faltan exactamente 5 segundos");
+        console.log(player.volume);
         loadAudio();
+
+        hasActionBeenPerformed = true;
     }
     if (player.ended) {
         nextMusic();//Reproducir la siguiente pista
@@ -226,6 +233,21 @@ function leerCarpeta() {
     updateProgress()
     console.log(canciones)
 }
+
+function leerCarpetaPublicidad() {
+    const input = document.getElementById('folderPublicidad');
+    const files = input.files;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (file.type === "audio/mpeg") {
+            const rutaCompleta = file.webkitRelativePath || file.name;
+            audiosPublicidad.push(rutaCompleta);
+        }
+    }
+    console.log(audiosPublicidad);
+}
+
 //Funcion para crear una playlist aleatoria
 function crearPlayListAleatoria(tamano) {
     for (let i = 0; i < tamano; i++) {
@@ -240,16 +262,16 @@ function crearPlayListAleatoria(tamano) {
 //Crear la playlist cuando se oprima el checkbox
 aleatorio.addEventListener("change", function () {
     musicaAleatoria = []
-    if(canciones.length > 0){
+    if (canciones.length > 0) {
         if (aleatorio.checked) {
             crearPlayListAleatoria(canciones.length);
         }
-    }else{
+    } else {
         aleatorio.checked = false
     }
-   
+
 });
 
-window.onload = function() {
+window.onload = function () {
     aleatorio.checked = false; // Asegúrate de que el checkbox esté desmarcado
 };
