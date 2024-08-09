@@ -12,6 +12,7 @@ var musicaAleatoria = [];
 var indicePlayListAleatoria = 0;
 var indicePublicidad = 0;
 let cincoSegundosNotificados = false;
+var vol;
 
 
 
@@ -38,13 +39,11 @@ function classIconPlay() {
     element.classList.add("fa-play-circle");
 }
 //Funcion para control del volumen
-function cambiarVolumen() {
-    const volumen = document.getElementById("volumen")
-    volumen.oninput = (e) => {
-        vol = e.target.value
-        player.volume = vol
-    }
-}
+const volumen = document.getElementById("volumen");
+volumen.addEventListener('input', (e) => {
+    const vol = e.target.value;  // Declarar vol como una variable local
+    player.volume = vol;
+});
 
 //Funcion para reproducir la proxima cancion
 function nextMusic() {
