@@ -135,7 +135,7 @@ function loadAudio() {
 
 function reproducirAudio() {
     publicidad.play();
-    if (indicePublicidad = audiosPublicidad.length - 1) {
+    if (indicePublicidad == audiosPublicidad.length - 1) {
         indicePublicidad = 0;
     }
     // Esperar a que termine la reproducción actual antes de cambiar la fuente
@@ -211,6 +211,7 @@ function secondsToString(seconds) {
     return hour + minute + ':' + second;
 }
 
+//Funcion que lee la carpta audios donde esta la musica
 function leerCarpeta() {
     const input = document.getElementById('folderInput');
     const output = document.getElementById('output');
@@ -241,6 +242,8 @@ function leerCarpeta() {
     updateProgress()
     console.log(canciones)
 }
+
+//Funcion que lee los archivos de la carpeta publicidad donde estan los audios publicitarios
 
 function leerCarpetaPublicidad() {
     const input = document.getElementById('folderPublicidad');
@@ -281,15 +284,7 @@ aleatorio.addEventListener("change", function () {
 
 });
 
-function mostrarDuration() {
-    const spot = document.getElementById('publicidad');
-    const duration = spot.duration;
-    const minutes = Math.floor(duration / 60);
-    const seconds = Math.floor(duration % 60);
-
-    console.log(`Duración del audio: ${minutes} minutos y ${seconds} segundos`);
-}
-
+//Funcion para forzar el checkbox de aleatorio siempre este desactivado nal recargar la pagina
 window.onload = function () {
     aleatorio.checked = false; // Asegúrate de que el checkbox esté desmarcado
 };
