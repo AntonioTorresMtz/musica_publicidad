@@ -12,7 +12,9 @@ var musicaAleatoria = [];
 var indicePlayListAleatoria = 0;
 var indicePublicidad = 0;
 let cincoSegundosNotificados = false;
-var vol;
+let cincoSegundosInicio = false;
+
+
 
 
 
@@ -44,6 +46,19 @@ volumen.addEventListener('input', (e) => {
     const vol = e.target.value;  // Declarar vol como una variable local
     player.volume = vol;
 });
+
+function bajarVolumen() {
+    var vol = document.getElementById("volumen").value;
+    document.getElementById("volumen").value = vol / 3;
+    player.volume = vol / 3;
+}
+
+function restaurarVolumen() {
+    var vol = document.getElementById("volumen").value;
+    document.getElementById("volumen").value = vol * 3;
+    player.volume = vol * 3;
+    console.log("Se restauro el audio")
+}
 
 //Funcion para reproducir la proxima cancion
 function nextMusic() {
@@ -139,6 +154,16 @@ function reproducirAudio() {
     }
     // Esperar a que termine la reproducción actual antes de cambiar la fuente
     publicidad.addEventListener('ended', () => {
+        var vol = document.getElementById("volumen").value;
+        if (vol * 3 > 1) {
+            document.getElementById("volumen").value = 1;
+            player.volume = 1;
+        } else {
+            document.getElementById("volumen").value = vol * 3;
+            player.volume = vol * 3;
+        }
+
+        console.log("Se restauro el audio")
         loadAudio();
     });
 }
@@ -158,12 +183,17 @@ function updateProgress() {
         document.getElementById('timer').innerText = duracion
     }
     var duracionPublicidad = publicidad.duration / 2
+    if (player.currentTime >= duracionPublicidad && !cincoSegundosInicio) {
+        cincoSegundosInicio = true;
+        console.log("Ya pasaron mas de cinco segundos")
+        //restaurarVolumen();
+    }
     if (player.duration - player.currentTime <= duracionPublicidad && player.duration - player.currentTime > 0 && !cincoSegundosNotificados) {
         console.log("Faltan 5 segundos");
         console.log(publicidad.duration)
         reproducirAudio();
-
         cincoSegundosNotificados = true;
+        bajarVolumen();
     }
     if (player.ended) {
         nextMusic();//Reproducir la siguiente pista
