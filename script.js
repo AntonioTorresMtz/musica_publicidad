@@ -183,11 +183,6 @@ function updateProgress() {
         document.getElementById('timer').innerText = duracion
     }
     var duracionPublicidad = publicidad.duration / 2
-    if (player.currentTime >= duracionPublicidad && !cincoSegundosInicio) {
-        cincoSegundosInicio = true;
-        console.log("Ya pasaron mas de cinco segundos")
-        //restaurarVolumen();
-    }
     if (player.duration - player.currentTime <= duracionPublicidad && player.duration - player.currentTime > 0 && !cincoSegundosNotificados) {
         console.log("Faltan 5 segundos");
         console.log(publicidad.duration)
