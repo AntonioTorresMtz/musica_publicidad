@@ -140,9 +140,9 @@ function loadAudio() {
     var publicidad = document.getElementById('publicidad');
     if (indicePublicidad >= 0 && indicePublicidad < audiosPublicidad.length) {
         publicidad.src = audiosPublicidad[indicePublicidad];
-        indicePublicidad = indicePublicidad + 1;
     } else {
-        console.log("Índice fuera de rango");
+        console.log("Índice fuera de rango: " + indicePublicidad);
+        indicePublicidad = 0;
     }
 
 }
@@ -164,6 +164,7 @@ function reproducirAudio() {
         }
 
         console.log("Se restauro el audio")
+        indicePublicidad = indicePublicidad + 1;
         loadAudio();
     });
 }
