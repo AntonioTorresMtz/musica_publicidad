@@ -61,7 +61,7 @@ progress {
     color: #6c5ce7;
 }
 
-.volumen {
+.volumenes {
     width: 50%;
     position: relative;
     top: 10px;
@@ -71,6 +71,8 @@ progress {
     color: #6c5ce7;
     margin-bottom: 20px;
 }
+
+
 
 #currentPlay {
     color: #6c5ce7
