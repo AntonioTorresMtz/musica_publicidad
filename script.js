@@ -11,6 +11,7 @@ const canciones = [];
 const audiosPublicidad = [];
 
 var musicaAleatoria = [];
+var cola = [];
 var indicePlayListAleatoria = 0;
 var indicePublicidad = 0;
 let cincoSegundosNotificados = false;
@@ -31,23 +32,17 @@ function crearPlayList() {
   return listado;
 }
 
-//Funcion para cambiar el icono del reprodutor
+//Funcion para cambiar el icono del reproductor
 function classIconPlay() {
   var element = document.getElementById("iconPlay");
   element.classList.remove("fa-pause-circle");
   element.classList.add("fa-play-circle");
 }
-//Funcion para control del volumen de la musica
+//Funcion para control del volumen
 const volumen = document.getElementById("volumen");
 volumen.addEventListener("input", (e) => {
   const vol = e.target.value; // Declarar vol como una variable local
   player.volume = vol;
-});
-
-const volumenPublicidad = document.getElementById("volumenPublicidad");
-volumenPublicidad.addEventListener("input", (e) => {
-  const volPublicidad = e.target.value;
-  publicidad.volume = volPublicidad;
 });
 
 function bajarVolumen() {
@@ -56,25 +51,37 @@ function bajarVolumen() {
   player.volume = vol / 3;
 }
 
+function restaurarVolumen() {
+  var vol = document.getElementById("volumen").value;
+  document.getElementById("volumen").value = vol * 3;
+  player.volume = vol * 3;
+  console.log("Se restauro el audio");
+}
+
 //Funcion para reproducir la proxima cancion
 function nextMusic() {
   const source = document.getElementById("source");
   cantidadCanciones = canciones.length;
   var musicaActual = Number(indiceActual[0]);
-  if (!aleatorio.checked) {
-    if (canciones.length == musicaActual + 1) {
-      var siguiente = 0;
-    } else {
-      var siguiente = musicaActual + 1;
-    }
+  if (cola.length > 0) {
+    siguiente = cola[0];
+    cola.shift();
   } else {
-    if (canciones.length == indicePlayListAleatoria + 1) {
-      indicePlayListAleatoria = 0;
-      var siguiente = musicaAleatoria[indicePlayListAleatoria];
-      indicePlayListAleatoria = indicePlayListAleatoria + 1;
+    if (!aleatorio.checked) {
+      if (canciones.length == musicaActual + 1) {
+        var siguiente = 0;
+      } else {
+        var siguiente = musicaActual + 1;
+      }
     } else {
-      var siguiente = musicaAleatoria[indicePlayListAleatoria];
-      indicePlayListAleatoria = indicePlayListAleatoria + 1;
+      if (canciones.length == indicePlayListAleatoria + 1) {
+        indicePlayListAleatoria = 0;
+        var siguiente = musicaAleatoria[indicePlayListAleatoria];
+        indicePlayListAleatoria = indicePlayListAleatoria + 1;
+      } else {
+        var siguiente = musicaAleatoria[indicePlayListAleatoria];
+        indicePlayListAleatoria = indicePlayListAleatoria + 1;
+      }
     }
   }
 
@@ -235,7 +242,7 @@ function secondsToString(seconds) {
   return hour + minute + ":" + second;
 }
 
-//Funcion que lee la carpta audios donde esta la musica
+//Funcion que lee la carpeta audios donde esta la musica
 function leerCarpeta() {
   const input = document.getElementById("folderInput");
   const output = document.getElementById("output");
@@ -264,6 +271,13 @@ function leerCarpeta() {
   loadMusic(canciones[0]);
   updateProgress();
   console.log(canciones);
+
+  listadoMusica.addEventListener("contextmenu", function (event) {
+    event.preventDefault(); // Previene que aparezca el menú contextual por defectoconsole.log("Clic derecho detectado!");
+    console.log("Diste click derecho! el indice fue: " + event.target.id);
+    cola.push(event.target.id);
+    // Aquí puedes ejecutar el código que desees al hacer clic derecho
+  });
 }
 
 //Funcion que lee los archivos de la carpeta publicidad donde estan los audios publicitarios
