@@ -215,11 +215,11 @@ function togglePlay() {
 }
 
 //Funcion para pausar al presionar la barra espaciadora:
-document.addEventListener('keydown', function(event) {
+document.addEventListener("keydown", function (event) {
   // Verifica si la tecla presionada es la barra espaciadora
-  if (event.code === 'Space') {
-      event.preventDefault();
-      togglePlay();
+  if (event.code === "Space") {
+    event.preventDefault();
+    togglePlay();
   }
 });
 //Funcion para cambiar el icono play o pause
@@ -290,12 +290,20 @@ function leerCarpeta() {
     var textoCola = document.getElementById("textoCola");
     textoCola.textContent =
       "Se agrego " + canciones[event.target.id] + " a la cola!";
-    textoCola.style.display = "block";
 
+    var contenedorCola = document.getElementById("cola");
+    contenedorCola.style.visibility = "visible";
+    contenedorCola.style.opacity = "1";
+
+    // Después de 3 segundos, ocultar con desvanecimiento
     setTimeout(function () {
-      textoCola.style.display = "none";
-    }, 2000);
-    // Aquí puedes ejecutar el código que desees al hacer clic derecho
+      contenedorCola.style.opacity = "0";
+
+      // Esperar el tiempo de transición para ocultar completamente el elemento
+      setTimeout(function () {
+        contenedorCola.style.visibility = "hidden";
+      }, 500); // 1000 ms es el tiempo de la transición en el CSS
+    }, 1500); // El tiempo que el elemento permanece visible
   });
 }
 

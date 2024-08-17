@@ -80,8 +80,10 @@ h3 {
 }
 
 .cola {
-  display: none;
   position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
