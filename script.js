@@ -38,11 +38,18 @@ function classIconPlay() {
   element.classList.remove("fa-pause-circle");
   element.classList.add("fa-play-circle");
 }
-//Funcion para control del volumen
+//Funcion para control del volumen de la musica
 const volumen = document.getElementById("volumen");
 volumen.addEventListener("input", (e) => {
   const vol = e.target.value; // Declarar vol como una variable local
   player.volume = vol;
+});
+
+//Funcion para control del volumen de la publicidad
+const volumenPublicidad = document.getElementById("volumenPublicidad");
+volumenPublicidad.addEventListener("input", (e) => {
+  const volPublicidad = e.target.value;
+  publicidad.volume = volPublicidad;
 });
 
 function bajarVolumen() {
