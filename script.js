@@ -213,6 +213,15 @@ function togglePlay() {
     return player.pause();
   }
 }
+
+//Funcion para pausar al presionar la barra espaciadora:
+document.addEventListener('keydown', function(event) {
+  // Verifica si la tecla presionada es la barra espaciadora
+  if (event.code === 'Space') {
+      event.preventDefault();
+      togglePlay();
+  }
+});
 //Funcion para cambiar el icono play o pause
 function toggleIcon() {
   var element = document.getElementById("iconPlay");
@@ -275,7 +284,17 @@ function leerCarpeta() {
   listadoMusica.addEventListener("contextmenu", function (event) {
     event.preventDefault(); // Previene que aparezca el menú contextual por defectoconsole.log("Clic derecho detectado!");
     console.log("Diste click derecho! el indice fue: " + event.target.id);
-    cola.push(event.target.id);
+
+    cola.push(event.target.id); //Agregamos una cancion al array cola
+    //Se muestra el mensaje en la pantalla
+    var textoCola = document.getElementById("textoCola");
+    textoCola.textContent =
+      "Se agrego " + canciones[event.target.id] + " a la cola!";
+    textoCola.style.display = "block";
+
+    setTimeout(function () {
+      textoCola.style.display = "none";
+    }, 2000);
     // Aquí puedes ejecutar el código que desees al hacer clic derecho
   });
 }

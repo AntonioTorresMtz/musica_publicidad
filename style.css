@@ -1,84 +1,95 @@
 body {
-    background: linear-gradient(to right, #6c5ce7, #e84393);
-    font-family: 'Lato', sans-serif;
-    font-size: 1.3em;
-    width: 50%;
-    margin: 15px auto;
-    padding: 20px;
-    text-align: center;
-    min-height: 50vh;
+  background: linear-gradient(to right, #6c5ce7, #e84393);
+  font-family: "Lato", sans-serif;
+  font-size: 1.3em;
+  width: 50%;
+  margin: 15px auto;
+  padding: 20px;
+  text-align: center;
+  min-height: 50vh;
 }
 
 #playList {
-    background: white;
-    border-radius: 10px;
-    text-align: left;
-    opacity: 0.8;
-    color: #e84393;
-
+  background: white;
+  border-radius: 10px;
+  text-align: left;
+  opacity: 0.8;
+  color: #e84393;
 }
 
 li {
-    padding: 10px;
+  padding: 10px;
 }
 
 li:hover,
 svg:hover {
-    cursor: pointer;
-    color: #e84393;
+  cursor: pointer;
+  color: #e84393;
 }
 
 li.active {
-    color: #6c5ce7;
+  color: #6c5ce7;
 }
 
 #controls {
-    border: 1px #eee solid;
-    border-radius: 10px;
-    padding: 10px;
-    background: white;
-    opacity: 0.8
+  border: 1px #eee solid;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  opacity: 0.8;
 }
 
 svg {
-    color: #6c5ce7
+  color: #6c5ce7;
 }
 
 progress {
-    width: 80%;
-    margin: 10px;
-    opacity: 0.5;
-
+  width: 80%;
+  margin: 10px;
+  opacity: 0.5;
 }
 
 .timer {
-    width: 50%;
-    position: relative;
-    top: 10px;
-    left: 0px;
-    text-align: left;
-    float: left;
-    color: #6c5ce7;
+  width: 50%;
+  position: relative;
+  top: 10px;
+  left: 0px;
+  text-align: left;
+  float: left;
+  color: #6c5ce7;
 }
 
 .volumenes {
-    width: 50%;
-    position: relative;
-    top: 10px;
-    right: 0px;
-    text-align: right;
-    float: left;
-    color: #6c5ce7;
-    margin-bottom: 20px;
+  width: 50%;
+  position: relative;
+  top: 10px;
+  right: 0px;
+  text-align: right;
+  float: left;
+  color: #6c5ce7;
+  margin-bottom: 20px;
 }
 
-
-
 #currentPlay {
-    color: #6c5ce7
+  color: #6c5ce7;
 }
 
 h3 {
-    color: #e84393;
-    margin: 0px;
+  color: #e84393;
+  margin: 0px;
+}
+
+.cola {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  z-index: 9999; /* Asegúrate de que este sea el elemento con el z-index más alto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
 }
