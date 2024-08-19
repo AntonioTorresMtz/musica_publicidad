@@ -87,7 +87,10 @@ h3 {
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  /*background-color: rgba(0, 0, 0, 0.5);  Fondo semitransparente */
+  background: #e84393;
+  border-radius: 10px;
+  color: #eee;
   z-index: 9999; /* Asegúrate de que este sea el elemento con el z-index más alto */
   display: flex;
   align-items: center;
