@@ -52,6 +52,20 @@ volumenPublicidad.addEventListener("input", (e) => {
   publicidad.volume = volPublicidad;
 });
 
+//Funcion para el control de la musica y la publicidad
+function subirMusicaGlobal() {
+  var volMusica = parseFloat(document.getElementById("volumen").value);
+  // Asegúrate de que el valor no supere el máximo permitido (generalmente 1)
+  if (volMusica >= 1 || volMusica + 0.1 >= 1) {
+    volMusica = 1;
+    player.volume = 1;
+  } else {
+    volMusica = volMusica + 0.1;
+    player.volume = volMusica;
+  }
+  document.getElementById("volumen").value = volMusica;
+}
+
 function bajarVolumen() {
   var vol = document.getElementById("volumen").value;
   document.getElementById("volumen").value = vol / 3;
@@ -224,9 +238,29 @@ function togglePlay() {
 //Funcion para pausar al presionar la barra espaciadora:
 document.addEventListener("keydown", function (event) {
   // Verifica si la tecla presionada es la barra espaciadora
-  if (event.code === "Space") {
-    event.preventDefault();
-    togglePlay();
+  switch (event.code) {
+    case "Space":
+      event.preventDefault();
+      togglePlay();
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      subirMusicaGlobal(); // Función para subir el volumen
+      break;
+    case "ArrowDown":
+      event.preventDefault();
+      decreaseVolume(); // Función para bajar el volumen
+      break;
+    case "ArrowLeft":
+      event.preventDefault();
+      prevMusic(); // Función para ir a la pista anterior
+      break;
+    case "ArrowRight":
+      event.preventDefault();
+      nextMusic(); // Función para ir a la siguiente pista
+      break;
+    default:
+      break;
   }
 });
 //Funcion para cambiar el icono play o pause
