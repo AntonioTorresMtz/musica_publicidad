@@ -55,15 +55,49 @@ volumenPublicidad.addEventListener("input", (e) => {
 //Funcion para el control de la musica y la publicidad
 function subirMusicaGlobal() {
   var volMusica = parseFloat(document.getElementById("volumen").value);
-  // Asegúrate de que el valor no supere el máximo permitido (generalmente 1)
+  var volPublicidad = parseFloat(
+    document.getElementById("volumenPublicidad").value
+  );
+  // Asegúrate de que el valor no supere el máximo permitido
   if (volMusica >= 1 || volMusica + 0.1 >= 1) {
     volMusica = 1;
-    player.volume = 1;
   } else {
     volMusica = volMusica + 0.1;
     player.volume = volMusica;
   }
+
+  if (volPublicidad >= 1 || volPublicidad + 0.1 >= 1) {
+    volPublicidad = 1;
+  } else {
+    volPublicidad = volPublicidad + 0.1;
+    publicidad.volume = volPublicidad;
+  }
   document.getElementById("volumen").value = volMusica;
+  document.getElementById("volumenPublicidad").value = volPublicidad;
+}
+
+//Bajar musica de manera global
+function bajarMusicaGlobal() {
+  var volMusica = parseFloat(document.getElementById("volumen").value);
+  var volPublicidad = parseFloat(
+    document.getElementById("volumenPublicidad").value
+  );
+  // Asegúrate de que el valor no supere el máximo permitido
+  if (volMusica <= 0 || volMusica - 0.1 <= 0) {
+    volMusica = 0;
+  } else {
+    volMusica = volMusica - 0.1;
+    player.volume = volMusica;
+  }
+
+  if (volPublicidad <= 0 || volPublicidad - 0.1 <= 0) {
+    volPublicidad = 0;
+  } else {
+    volPublicidad = volPublicidad - 0.1;
+    publicidad.volume = volPublicidad;
+  }
+  document.getElementById("volumen").value = volMusica;
+  document.getElementById("volumenPublicidad").value = volPublicidad;
 }
 
 function bajarVolumen() {
@@ -249,7 +283,7 @@ document.addEventListener("keydown", function (event) {
       break;
     case "ArrowDown":
       event.preventDefault();
-      decreaseVolume(); // Función para bajar el volumen
+      bajarMusicaGlobal(); // Función para bajar el volumen
       break;
     case "ArrowLeft":
       event.preventDefault();
