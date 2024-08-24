@@ -76,6 +76,32 @@ function subirMusicaGlobal() {
   document.getElementById("volumenPublicidad").value = volPublicidad;
 }
 
+function subirVolumenMusica() {
+  var volMusica = parseFloat(document.getElementById("volumen").value);
+  // Asegúrate de que el valor no supere el máximo permitido
+  if (volMusica >= 1 || volMusica + 0.1 >= 1) {
+    volMusica = 1;
+  } else {
+    volMusica = volMusica + 0.1;
+    player.volume = volMusica;
+  }
+  document.getElementById("volumen").value = volMusica;
+}
+
+function subirVolumenPublicidad() {
+  var volPublicidad = parseFloat(
+    document.getElementById("volumenPublicidad").value
+  );
+  // Asegúrate de que el valor no supere el máximo permitido
+  if (volPublicidad >= 1 || volPublicidad + 0.1 >= 1) {
+    volPublicidad = 1;
+  } else {
+    volPublicidad = volPublicidad + 0.1;
+    publicidad.volume = volPublicidad;
+  }
+  document.getElementById("volumenPublicidad").value = volPublicidad;
+}
+
 //Bajar musica de manera global
 function bajarMusicaGlobal() {
   var volMusica = parseFloat(document.getElementById("volumen").value);
@@ -85,6 +111,7 @@ function bajarMusicaGlobal() {
   // Asegúrate de que el valor no supere el máximo permitido
   if (volMusica <= 0 || volMusica - 0.1 <= 0) {
     volMusica = 0;
+    player.volume = 0;
   } else {
     volMusica = volMusica - 0.1;
     player.volume = volMusica;
@@ -97,6 +124,34 @@ function bajarMusicaGlobal() {
     publicidad.volume = volPublicidad;
   }
   document.getElementById("volumen").value = volMusica;
+  document.getElementById("volumenPublicidad").value = volPublicidad;
+}
+
+function bajarVolumenMusica() {
+  var volMusica = parseFloat(document.getElementById("volumen").value);
+  // Asegúrate de que el valor no supere el máximo permitido
+  if (volMusica <= 0 || volMusica - 0.1 <= 0) {
+    volMusica = 0;
+    player.volume = 0;
+  } else {
+    volMusica = volMusica - 0.1;
+    player.volume = volMusica;
+  }
+  document.getElementById("volumen").value = volMusica;
+}
+
+function bajarVolumenPublicidad() {
+  var volPublicidad = parseFloat(
+    document.getElementById("volumenPublicidad").value
+  );
+  // Asegúrate de que el valor no supere el máximo permitido
+  if (volPublicidad <= 0 || volPublicidad - 0.1 <= 0) {
+    volPublicidad = 0;
+    publicidad.volume = 0;
+  } else {
+    volPublicidad = volPublicidad - 0.1;
+    publicidad.volume = volPublicidad;
+  }
   document.getElementById("volumenPublicidad").value = volPublicidad;
 }
 
@@ -292,6 +347,18 @@ document.addEventListener("keydown", function (event) {
     case "ArrowRight":
       event.preventDefault();
       nextMusic(); // Función para ir a la siguiente pista
+      break;
+    case "KeyA":
+      bajarVolumenMusica();
+      break;
+    case "KeyS":
+      subirVolumenMusica();
+      break;
+    case "KeyZ":
+      bajarVolumenPublicidad();
+      break;
+    case "KeyX":
+      subirVolumenPublicidad();
       break;
     default:
       break;
