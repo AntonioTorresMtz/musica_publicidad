@@ -151,20 +151,30 @@ h3 {
   width: 300px;
 }
 
+.controles-boton{
+  flex-wrap: wrap;
+  color: black;
+  width: 100%;
+  background: #6c5ce7;
+}
+
 .contenedor-boton{
   margin-left: 20px;
 }
 
 .controles{
+  background: #e84393;
   position: fixed;
   display: flex;
   width: 300px;
 
-  bottom: 0;
-  left: 0;
+  bottom: -640px;
+  right: 0;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+
+  transition: bottom 0.5s ease; /* Transición suave al cambiar la posición */
 }
 
 .all{

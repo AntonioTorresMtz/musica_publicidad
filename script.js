@@ -499,6 +499,17 @@ aleatorio.addEventListener("change", function () {
   }
 });
 
+//Funcion para la animacion de el contenedor de los botones
+function mostrarControles() {
+  var contenedor = document.getElementById("controles");
+  
+  if (contenedor.style.bottom === '0px') {
+    contenedor.style.bottom = '-640px';
+  } else {
+    contenedor.style.bottom = '0px';
+  }
+}
+
 //Funcion para forzar el checkbox de aleatorio siempre este desactivado nal recargar la pagina
 window.onload = function () {
   aleatorio.checked = false; // Asegúrate de que el checkbox esté desmarcado
