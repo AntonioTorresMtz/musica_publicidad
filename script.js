@@ -450,16 +450,26 @@ function leerCarpeta() {
 }
 
 //Funcion que lee los archivos de la carpeta publicidad donde estan los audios publicitarios
+const listaPublicidad = document.getElementById("listadoPublicidad");
 
 function leerCarpetaPublicidad() {
   const input = document.getElementById("folderPublicidad");
   const files = input.files;
+
+  var msjSinPublicidad = document.getElementById("mensaje");
+  if (msjSinPublicidad) {
+    msjSinPublicidad.remove();
+  }
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     if (file.type === "audio/mpeg") {
       const rutaCompleta = file.webkitRelativePath || file.name;
       audiosPublicidad.push(rutaCompleta);
+      //Agregamos al HTML la cancion
+      var nuevoElemento = document.createElement("li");
+      nuevoElemento.textContent = file.name;
+      listaPublicidad.appendChild(nuevoElemento);
     }
   }
   console.log(audiosPublicidad);

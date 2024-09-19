@@ -2,11 +2,22 @@ body {
   background: linear-gradient(to right, #6c5ce7, #e84393);
   font-family: "Lato", sans-serif;
   font-size: 1.3em;
-  width: 50%;
-  margin: 15px auto;
+  /*margin: 15px auto;*/
+  margin-bottom: 20px;
   padding: 20px;
   text-align: center;
-  min-height: 50vh;
+  /*min-height: 50vh;*/
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.contenedor-principal{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #playList {
@@ -97,4 +108,84 @@ h3 {
   justify-content: center;
   color: white;
   font-size: 24px;
+}
+
+.tecla {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 30px; /* Ajusta según el tamaño deseado */
+}
+
+.espacio{
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #e0e0e0;
+    color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 120px; /* Ajusta según el tamaño deseado */
+
+}
+
+.tecla:active {
+  background-color: #d4d4d4;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.controles-titulo{
+  width: 300px;
+}
+
+.contenedor-boton{
+  margin-left: 20px;
+}
+
+.controles{
+  position: fixed;
+  display: flex;
+  width: 300px;
+
+  bottom: 0;
+  left: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.all{
+  width: 100%;
+}
+
+
+.contenedor-publicidad{
+  width: 300px;
+  max-height: 400px;
+  border: 1px #eee solid;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  opacity: 0.8;
+  margin-left: 5px;
+  overflow-y: scroll;
+}
+
+
+
+.titulo-publicidad{
+  background: pink;
 }
