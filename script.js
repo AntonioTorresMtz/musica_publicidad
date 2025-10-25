@@ -8,12 +8,12 @@ const aleatorio = document.getElementById("aleatorio");
 //Array con el listado de canciones a mostrar en el reprodutor
 const canciones = [];
 
-const audiosPublicidad = [];
+const audiosInterlude = [];
 
 var musicaAleatoria = [];
 var cola = [];
 var indicePlayListAleatoria = 0;
-var indicePublicidad = 0;
+var indiceInterlude = 0;
 let cincoSegundosNotificados = false;
 let cincoSegundosInicio = false;
 
@@ -45,18 +45,18 @@ volumen.addEventListener("input", (e) => {
   player.volume = vol;
 });
 
-//Funcion para control del volumen de la publicidad
-const volumenPublicidad = document.getElementById("volumenPublicidad");
-volumenPublicidad.addEventListener("input", (e) => {
-  const volPublicidad = e.target.value;
-  publicidad.volume = volPublicidad;
+//Funcion para control del volumen de los Spots
+const volumenInterlude = document.getElementById("volumenInterlude");
+volumenInterlude.addEventListener("input", (e) => {
+  const volInterlude = e.target.value;
+  interlude.volume = volInterlude;
 });
 
-//Funcion para el control de la musica y la publicidad
+//Funcion para el control de la musica y los spots
 function subirMusicaGlobal() {
   var volMusica = parseFloat(document.getElementById("volumen").value);
-  var volPublicidad = parseFloat(
-    document.getElementById("volumenPublicidad").value
+  var volInterlude = parseFloat(
+    document.getElementById("volumenInterlude").value
   );
   // Asegúrate de que el valor no supere el máximo permitido
   if (volMusica >= 1 || volMusica + 0.1 >= 1) {
@@ -66,14 +66,14 @@ function subirMusicaGlobal() {
     player.volume = volMusica;
   }
 
-  if (volPublicidad >= 1 || volPublicidad + 0.1 >= 1) {
-    volPublicidad = 1;
+  if (volInterlude >= 1 || volInterlude + 0.1 >= 1) {
+    volInterlude = 1;
   } else {
-    volPublicidad = volPublicidad + 0.1;
-    publicidad.volume = volPublicidad;
+    volInterlude = volInterlude + 0.1;
+    interlude.volume = volInterlude;
   }
   document.getElementById("volumen").value = volMusica;
-  document.getElementById("volumenPublicidad").value = volPublicidad;
+  document.getElementById("volumenInterlude").value = volInterlude;
 }
 
 function subirVolumenMusica() {
@@ -88,25 +88,25 @@ function subirVolumenMusica() {
   document.getElementById("volumen").value = volMusica;
 }
 
-function subirVolumenPublicidad() {
-  var volPublicidad = parseFloat(
-    document.getElementById("volumenPublicidad").value
+function subirVolumenInterlude() {
+  var volInterlude = parseFloat(
+    document.getElementById("volumenInterlude").value
   );
   // Asegúrate de que el valor no supere el máximo permitido
-  if (volPublicidad >= 1 || volPublicidad + 0.1 >= 1) {
-    volPublicidad = 1;
+  if (volInterlude >= 1 || volInterlude + 0.1 >= 1) {
+    volInterlude = 1;
   } else {
-    volPublicidad = volPublicidad + 0.1;
-    publicidad.volume = volPublicidad;
+    volInterlude = volInterlude + 0.1;
+    interlude.volume = volInterlude;
   }
-  document.getElementById("volumenPublicidad").value = volPublicidad;
+  document.getElementById("volumenInterlude").value = volInterlude;
 }
 
 //Bajar musica de manera global
 function bajarMusicaGlobal() {
   var volMusica = parseFloat(document.getElementById("volumen").value);
-  var volPublicidad = parseFloat(
-    document.getElementById("volumenPublicidad").value
+  var volInterlude = parseFloat(
+    document.getElementById("volumenInterlude").value
   );
   // Asegúrate de que el valor no supere el máximo permitido
   if (volMusica <= 0 || volMusica - 0.1 <= 0) {
@@ -117,14 +117,14 @@ function bajarMusicaGlobal() {
     player.volume = volMusica;
   }
 
-  if (volPublicidad <= 0 || volPublicidad - 0.1 <= 0) {
-    volPublicidad = 0;
+  if (volInterlude <= 0 || volInterlude - 0.1 <= 0) {
+    volInterlude = 0;
   } else {
-    volPublicidad = volPublicidad - 0.1;
-    publicidad.volume = volPublicidad;
+    volInterlude = volInterlude - 0.1;
+    interlude.volume = volInterlude;
   }
   document.getElementById("volumen").value = volMusica;
-  document.getElementById("volumenPublicidad").value = volPublicidad;
+  document.getElementById("volumenInterlude").value = volInterlude;
 }
 
 function bajarVolumenMusica() {
@@ -140,19 +140,19 @@ function bajarVolumenMusica() {
   document.getElementById("volumen").value = volMusica;
 }
 
-function bajarVolumenPublicidad() {
-  var volPublicidad = parseFloat(
-    document.getElementById("volumenPublicidad").value
+function bajarVolumenInterlude() {
+  var volInterlude = parseFloat(
+    document.getElementById("volumenInterlude").value
   );
   // Asegúrate de que el valor no supere el máximo permitido
-  if (volPublicidad <= 0 || volPublicidad - 0.1 <= 0) {
-    volPublicidad = 0;
-    publicidad.volume = 0;
+  if (volInterlude <= 0 || volInterlude - 0.1 <= 0) {
+    volInterlude = 0;
+    interlude.volume = 0;
   } else {
-    volPublicidad = volPublicidad - 0.1;
-    publicidad.volume = volPublicidad;
+    volInterlude = volInterlude - 0.1;
+    interlude.volume = volInterlude;
   }
-  document.getElementById("volumenPublicidad").value = volPublicidad;
+  document.getElementById("volumenInterlude").value = volInterlude;
 }
 
 function bajarVolumen() {
@@ -249,23 +249,23 @@ function loadMusic(ruta) {
 
 // Funcion para cargar audios
 function loadAudio() {
-  var publicidad = document.getElementById("publicidad");
-  if (indicePublicidad >= 0 && indicePublicidad < audiosPublicidad.length) {
-    publicidad.src = audiosPublicidad[indicePublicidad];
+  var interlude = document.getElementById("interlude");
+  if (indiceInterlude >= 0 && indiceInterlude < audiosInterlude.length) {
+    interlude.src = audiosInterlude[indiceInterlude];
   } else {
-    console.log("Índice fuera de rango: " + indicePublicidad);
-    indicePublicidad = 0;
+    console.log("Índice fuera de rango: " + indiceInterlude);
+    indiceInterlude = 0;
   }
 }
 
 function reproducirAudio() {
-  publicidad.play();
-  if (indicePublicidad == audiosPublicidad.length - 1) {
-    indicePublicidad = 0;
+  interlude.play();
+  if (indiceInterlude == audiosInterlude.length - 1) {
+    indiceInterlude = 0;
   }
 }
 // Esperar a que termine la reproducción actual antes de cambiar la fuente
-publicidad.addEventListener("ended", () => {
+interlude.addEventListener("ended", () => {
   var vol = document.getElementById("volumen").value;
   if (vol * 3 > 1) {
     document.getElementById("volumen").value = 1;
@@ -276,8 +276,8 @@ publicidad.addEventListener("ended", () => {
   }
 
   console.log("Se restauro el audio");
-  indicePublicidad = indicePublicidad + 1;
-  console.log("Indice: " + indicePublicidad);
+  indiceInterlude = indiceInterlude + 1;
+  console.log("Indice: " + indiceInterlude);
   loadAudio();
 });
 
@@ -295,14 +295,14 @@ function updateProgress() {
     duracion = actual + " / " + dura;
     document.getElementById("timer").innerText = duracion;
   }
-  var duracionPublicidad = publicidad.duration / 2;
+  var duracionInterlude = interlude.duration / 2;
   if (
-    player.duration - player.currentTime <= duracionPublicidad &&
+    player.duration - player.currentTime <= duracionInterlude &&
     player.duration - player.currentTime > 0 &&
     !cincoSegundosNotificados
   ) {
     console.log("Faltan 5 segundos");
-    console.log(publicidad.duration);
+    console.log(interlude.duration);
     reproducirAudio();
     cincoSegundosNotificados = true;
     bajarVolumen();
@@ -355,10 +355,10 @@ document.addEventListener("keydown", function (event) {
       subirVolumenMusica();
       break;
     case "KeyZ":
-      bajarVolumenPublicidad();
+      bajarVolumenInterlude();
       break;
     case "KeyX":
-      subirVolumenPublicidad();
+      subirVolumenInterlude();
       break;
     default:
       break;
@@ -449,30 +449,30 @@ function leerCarpeta() {
   });
 }
 
-//Funcion que lee los archivos de la carpeta publicidad donde estan los audios publicitarios
-const listaPublicidad = document.getElementById("listadoPublicidad");
+//Funcion que lee los archivos de la carpeta Interlude donde estan los audios publicitarios
+const listaInterlude = document.getElementById("listadoInterlude");
 
-function leerCarpetaPublicidad() {
-  const input = document.getElementById("folderPublicidad");
+function leerCarpetaInterlude() {
+  const input = document.getElementById("folderInterlude");
   const files = input.files;
 
-  var msjSinPublicidad = document.getElementById("mensaje");
-  if (msjSinPublicidad) {
-    msjSinPublicidad.remove();
+  var msjSinInterlude = document.getElementById("mensaje");
+  if (msjSinInterlude) {
+    msjSinInterlude.remove();
   }
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     if (file.type === "audio/mpeg") {
       const rutaCompleta = file.webkitRelativePath || file.name;
-      audiosPublicidad.push(rutaCompleta);
+      audiosInterlude.push(rutaCompleta);
       //Agregamos al HTML la cancion
       var nuevoElemento = document.createElement("li");
       nuevoElemento.textContent = file.name;
-      listaPublicidad.appendChild(nuevoElemento);
+      listaInterlude.appendChild(nuevoElemento);
     }
   }
-  console.log(audiosPublicidad);
+  console.log(audiosInterlude);
   loadAudio();
 }
 

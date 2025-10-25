@@ -17,7 +17,7 @@
       Audio no soportado
     </audio>
 
-    <audio id="publicidad"></audio>
+    <audio id="interlude"></audio>
     <div class="contenedor-principal">
       <div id="controls">
         <div class="timer" id="timer">&nbsp;</div>
@@ -37,13 +37,13 @@
             />
             <i class="fas fa-volume-up"></i>
           </div>
-          <div class="volumenPublicidad">
-            Vol Publicidad:
+          <div class="volumenInterlude">
+            Vol Spot:
             <i class="fas fa-volume-down"></i>
             <input
               type="range"
-              name="volumenPublicidad"
-              id="volumenPublicidad"
+              name="volumenInterlude"
+              id="volumenInterlude"
               min="0"
               max="1"
               step="0.01"
@@ -85,24 +85,24 @@
         <pre id="output"></pre>
         <input
           type="file"
-          id="folderPublicidad"
+          id="folderInterlude"
           webkitdirectory
           directory
           multiple
         />
-        <button onclick="leerCarpetaPublicidad()">
-          Leer Carpeta de publicidad
+        <button onclick="leerCarpetaInterlude()">
+          Leer Carpeta de Spots
         </button>
 
         <div id="playList"></div>
         <div class="cola" id="cola"><p id="textoCola"></p></div>
       </div>
 
-      <div class="contenedor-publicidad">
-        <div class="titulo-publicidad">Lista de publicidad</div>
-        <div class="contenedor-lista-publicidad">
-          <p id="mensaje">No has cargado publicidad aún.</p>
-          <ol id="listadoPublicidad" class="listado-publicidad"></ol>
+      <div class="contenedor-interlude">
+        <div class="titulo-interlude">Lista de Spots</div>
+        <div class="contenedor-lista-interlude">
+          <p id="mensaje">No has cargado spot aún.</p>
+          <ol id="listadoInterlude" class="listado-interlude"></ol>
         </div>
       </div>
     </div>
