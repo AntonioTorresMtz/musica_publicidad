@@ -9,6 +9,12 @@
     <!--load all styles -->
     <script defer src="fontawesome/js/all.js"></script>
     <!--load all styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
   </head>
 
   <body>
@@ -18,86 +24,91 @@
     </audio>
 
     <audio id="interlude"></audio>
-    <div class="contenedor-principal">
-      <div id="controls">
-        <div class="timer" id="timer">&nbsp;</div>
+    <div class="container contenedor-principal">
+      <div class="row">
+        <div class="col-4" id="controls">
+          <div class="timer" id="timer">&nbsp;</div>
 
-        <div class="volumenes">
-          <div class="volumen">
-            Vol Musica:
-            <i class="fas fa-volume-down"></i>
-            <input
-              type="range"
-              name="volumen"
-              id="volumen"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.75"
-            />
-            <i class="fas fa-volume-up"></i>
+          <div class="volumenes">
+            <div class="volumen">
+              Vol Musica:
+              <i class="fas fa-volume-down"></i>
+              <input
+                type="range"
+                name="volumen"
+                id="volumen"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.75"
+              />
+              <i class="fas fa-volume-up"></i>
+            </div>
+            <div class="volumenInterlude">
+              Vol Spot:
+              <i class="fas fa-volume-down"></i>
+              <input
+                type="range"
+                name="volumenInterlude"
+                id="volumenInterlude"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.75"
+              />
+              <i class="fas fa-volume-up"></i>
+            </div>
           </div>
-          <div class="volumenInterlude">
-            Vol Spot:
-            <i class="fas fa-volume-down"></i>
-            <input
-              type="range"
-              name="volumenInterlude"
-              id="volumenInterlude"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.75"
-            />
-            <i class="fas fa-volume-up"></i>
+
+          <i class="fas fa-backward fa-5x" onclick="prevMusic();"></i>
+          <i
+            class="far fa-play-circle fa-5x"
+            onclick="togglePlay();"
+            id="iconPlay"
+          ></i>
+          <i class="fas fa-forward fa-5x" onclick="nextMusic();"></i>
+          <br />
+          <span id="currentPlay"></span><br />
+          <progress id="progress" value="0" max="100"></progress>
+          <div class="aleatorio">
+            <label
+              ><input
+                type="checkbox"
+                id="aleatorio"
+                value="aleatorio"
+              />Reproduccion aleatoria</label
+            >
           </div>
+
+          <h3>Mi música</h3>
+          <input
+            type="file"
+            id="folderInput"
+            webkitdirectory
+            directory
+            multiple
+          />
+          <button onclick="leerCarpeta()">Leer Carpeta</button>
+          <pre id="output"></pre>
+          <input
+            type="file"
+            id="folderInterlude"
+            webkitdirectory
+            directory
+            multiple
+          />
+          <button onclick="leerCarpetaInterlude()">
+            Leer Carpeta de Spots
+          </button>
+          <div class="cola" id="cola"><p id="textoCola"></p></div>
         </div>
-
-        <i class="fas fa-backward fa-5x" onclick="prevMusic();"></i>
-        <i
-          class="far fa-play-circle fa-5x"
-          onclick="togglePlay();"
-          id="iconPlay"
-        ></i>
-        <i class="fas fa-forward fa-5x" onclick="nextMusic();"></i>
-        <br />
-        <span id="currentPlay"></span><br />
-        <progress id="progress" value="0" max="100"></progress>
-        <div class="aleatorio">
-          <label
-            ><input
-              type="checkbox"
-              id="aleatorio"
-              value="aleatorio"
-            />Reproduccion aleatoria</label
-          >
+        <div class="col-8">
+          <div class="lista-musica" id="playList">Contenedor Vacio</div>
         </div>
-
-        <h3>Mi música</h3>
-        <input
-          type="file"
-          id="folderInput"
-          webkitdirectory
-          directory
-          multiple
-        />
-        <button onclick="leerCarpeta()">Leer Carpeta</button>
-        <pre id="output"></pre>
-        <input
-          type="file"
-          id="folderInterlude"
-          webkitdirectory
-          directory
-          multiple
-        />
-        <button onclick="leerCarpetaInterlude()">
-          Leer Carpeta de Spots
-        </button>
-
-        <div id="playList"></div>
-        <div class="cola" id="cola"><p id="textoCola"></p></div>
       </div>
+    </div>
 
+    <div class="row">
       <div class="contenedor-interlude">
         <div class="titulo-interlude">Lista de Spots</div>
         <div class="contenedor-lista-interlude">
@@ -107,9 +118,10 @@
       </div>
     </div>
 
-    
     <div class="controles" id="controles" onclick="mostrarControles()">
-      <div class="controles-boton"><p> <i class="fas fa-arrow-up"></i> Ver controles:</p></div>
+      <div class="controles-boton">
+        <p><i class="fas fa-arrow-up"></i> Ver controles:</p>
+      </div>
       <div class="controles-titulo"><p>Reproducción:</p></div>
       <div class="contenedor-boton all">
         <label for="">Pausar</label><br />
@@ -123,7 +135,7 @@
         <label for="">Siguiente</label><br />
         <p class="tecla"><i class="fas fa-arrow-right"></i></p>
       </div>
-    
+
       <div class="controles-titulo"><p>Volumen Global:</p></div>
       <div class="contenedor-boton">
         <label for="">Bajar</label><br />
@@ -140,7 +152,7 @@
       </div>
       <div class="contenedor-boton">
         <label for="">Subir</label><br />
-        <p class="tecla">S</i></p>
+        <p class="tecla"><i>S</i></p>
       </div>
       <div class="controles-titulo"><p>Volumen Anuncios</p></div>
       <div class="contenedor-boton">
@@ -149,7 +161,7 @@
       </div>
       <div class="contenedor-boton">
         <label for="">Subir</label><br />
-        <p class="tecla">X</i></p>
+        <p class="tecla"><i>X</i></p>
       </div>
     </div>
 
